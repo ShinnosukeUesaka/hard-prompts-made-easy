@@ -216,7 +216,7 @@ def optimize_prompt_loop(model, tokenizer, token_embedding, all_target_features,
         print(f"best cosine sim: {best_sim}")
         print(f"best prompt: {best_text}")
 
-    return best_text
+    return best_text, best_sim
 
 
 def optimize_prompt(model, preprocess, args, device, target_images=None, target_prompts=None):
@@ -228,7 +228,7 @@ def optimize_prompt(model, preprocess, args, device, target_images=None, target_
     all_target_features = get_target_feature(model, preprocess, tokenizer_funct, device, target_images=target_images, target_prompts=target_prompts)
 
     # optimize prompt
-    learned_prompt = optimize_prompt_loop(model, tokenizer, token_embedding, all_target_features, args, device)
+    learned_prompt, best_sim = optimize_prompt_loop(model, tokenizer, token_embedding, all_target_features, args, device)
 
-    return learned_prompt
+    return learned_prompt, best_sim
     
